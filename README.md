@@ -57,8 +57,8 @@ import sys
   # Step 1: Data Cleanup
   
   
-  First we will want to import the gene expression for each patient as a pandas dataframe.
-  ```
+First we will want to import the gene expression for each patient as a pandas dataframe.
+```
 expression_df = pd.read_table("./data/TCGA_BRCA_EXP.v1.gct",index_col=0,skiprows=2)
 expression_df = expression_df[[c for c in expression_df.columns if c !="Description"]]
 expression_df = expression_df.rename(columns={c:c.replace("_","-") for c in expression_df.columns})
@@ -71,13 +71,14 @@ clinical_info_df = pd.read_csv("./data/TCGA_BRCA_clinical_FH.csv",index_col=0)
 clinical_info_df.head()
 ```
 
-Since we are interested in understanding the survival of patients based on their RNA Seq data, we can focus on deceased patients.
+TCGA data was collected from many different institutions ("sites") nationwide, and each has slightly different ways to record clinical data.  This results in a very "scattered" data table.  For example, you can see here that the time of event stored in two different columns depending on whether the patient is dead or alive.  There are also patients who have timepoint values recorded in both, or the wrong column, so you cannot just "pick one" or else you will lose info.
 ```
 df = clinical_info_df[["days_to_last_followup",'days_to_death', 'vital_status']] 
 df.loc[df["vital_status"]=="Dead"].head()
 ```
 
-Additionally, we will want to remove patients whose vital status is 'null'.
+This code below "regularizes" the timepoint data into one table by choosing the column depending on the patient's vital status (Dead/Alive).  
+
 ```
 df["days_to_last_followup"] = pd.to_numeric(df["days_to_last_followup"],errors="coerce")
 df["days_to_death"] = pd.to_numeric(df["days_to_death"],errors="coerce")
@@ -108,14 +109,9 @@ vital_status_df
 ```
 
 
-  We can also have a look at the patients who are deceased,
+The data is now cleaned, even for dead patients:
 ```
 vital_status_df.loc[vital_status_df["vital_status"]=="Dead"]
-```
-  
-and we can identify what the endpoint time of our study will be. 
-```
-df["days_to_last_followup"].iloc[0]
 ```
   
 # Step 2: Dimensionality Reduction
