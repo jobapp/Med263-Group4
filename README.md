@@ -50,15 +50,15 @@ from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
 import sys
 ```
-  Import Data from [The Cancer Genome Atlas](https://portal.gdc.cancer.gov/projects/TCGA-BRCA).
-  ```
-  Insert download data code here.
-  ```
+Import Data from [The Cancer Genome Atlas](https://portal.gdc.cancer.gov/projects/TCGA-BRCA).
+```
+Insert download data code here.
+```
   # Step 1: Data Cleanup
   
   
 First we will want to import the gene expression for each patient as a pandas dataframe.
-```
+```python
 expression_df = pd.read_table("./data/TCGA_BRCA_EXP.v1.gct",index_col=0,skiprows=2)
 expression_df = expression_df[[c for c in expression_df.columns if c !="Description"]]
 expression_df = expression_df.rename(columns={c:c.replace("_","-") for c in expression_df.columns})
@@ -66,20 +66,20 @@ expression_df.head()
 ```
 
 Next, we can import the patient's clininically relevant data into a seperate pandas table
-```
+```python
 clinical_info_df = pd.read_csv("./data/TCGA_BRCA_clinical_FH.csv",index_col=0)
 clinical_info_df.head()
 ```
 
 TCGA data was collected from many different institutions ("sites") nationwide, and each has slightly different ways to record clinical data.  This results in a very "scattered" data table.  For example, you can see here that the time of event stored in two different columns depending on whether the patient is dead or alive.  There are also patients who have timepoint values recorded in both, or the wrong column, so you cannot just "pick one" or else you will lose info.
-```
+```python
 df = clinical_info_df[["days_to_last_followup",'days_to_death', 'vital_status']] 
 df.loc[df["vital_status"]=="Dead"].head()
 ```
 
 This code below "regularizes" the timepoint data into one table by choosing the column depending on the patient's vital status (Dead/Alive).  
 
-```
+```python
 df["days_to_last_followup"] = pd.to_numeric(df["days_to_last_followup"],errors="coerce")
 df["days_to_death"] = pd.to_numeric(df["days_to_death"],errors="coerce")
 
@@ -110,7 +110,7 @@ vital_status_df
 
 
 The data is now cleaned, even for dead patients:
-```
+```python
 vital_status_df.loc[vital_status_df["vital_status"]=="Dead"]
 ```
   
@@ -120,7 +120,7 @@ vital_status_df.loc[vital_status_df["vital_status"]=="Dead"]
   into two,|W| and |H|, such that **W x H = V**. We will also z-normalize the outputted matrices so that we can more easily interpret and visualize the data.
   
   This code creates the NMF decomposition and z-normalize functions.
-  ```
+```python
 def NMF_decomposition(data,n_comp,max_iter=1000):
     model = sklearn.decomposition.NMF(n_components = n_comp,
                                       init = 'nndsvdar',
@@ -150,20 +150,20 @@ def z_normalize_group(exp_df_in,do_clip = False,do_shift = False,do_rank = False
 ```
 
 Here we'll normalize and perform dimensionality reduction using the functions created above. 
-```
+```python
 normalized_expression_df = expression_df.rank(axis=0, method='dense', numeric_only=None, na_option='keep', 
                            ascending=True, pct=False)
 W_df,H_df = NMF_decomposition(normalized_expression_df,10,max_iter=1000)
 ```
 
 We can plot heatmaps of the resulting **W** and **H** using seaborn where **W** contains patient sample ID, and **H** contains the gene expression data.
-```
+```python
 fig, ax = plt.subplots(figsize=(15,12))
 sns.heatmap(z_normalize_group(H_df),cmap="bwr",vmin=-2,vmax=2,center=0)
 plt.show()
 ```
 
-```
+```python
 fig, ax = plt.subplots(figsize=(15,12))
 sns.heatmap(z_normalize_group(W_df),cmap="bwr",vmin=-2,vmax=2,center=0)
 plt.show()
@@ -173,7 +173,7 @@ plt.show()
 
 # Step 3: Cluster
 
-```
+```python
 W_row_linkage_obj = linkage(distance.pdist(W_df), method='average')
 W_col_linkage_obj = linkage(distance.pdist(W_df.T), method='average')
 
@@ -182,7 +182,7 @@ H_col_linkage_obj = linkage(distance.pdist(H_df.T), method='average')
 ```
 
 Cluster of genes (**W**):
-```
+```python
 sns.clustermap(W_df,
                row_linkage=W_row_linkage_obj,
                col_linkage = W_col_linkage_obj,
@@ -197,7 +197,7 @@ sns.clustermap(W_df,
 ```
 
 Cluster of Patients (**H**):
-```
+```python
 sns.clustermap(H_df,
                row_linkage=H_row_linkage_obj,
                col_linkage = H_col_linkage_obj,
@@ -212,14 +212,14 @@ sns.clustermap(H_df,
 ```
 
 Now that we have clusters, it is always nice to visualize them using color:
-```
+```python
 colormap_hex = []
 colormap_obj = cm.get_cmap('Paired')
 for i in range(0,colormap_obj.N):
     colormap_hex.append(colors.rgb2hex(colormap_obj(i)))
 colormap_hex
 ```
-```
+```python
 height_threshold = 100
 plt.figure(figsize=(20, 12))
 set_link_color_palette(colormap_hex)
@@ -240,7 +240,7 @@ plt.show()
 ```
 
 Now that we have nice clusters, we can create a dataframe, assigning each patient to its cluster:
-```
+```python
 cluter_assignments_arr = cut_tree(H_col_linkage_obj,height=height_threshold).flatten()[dendrogram_dict["leaves"]]
 plt.figure(figsize=(20, 12))
 sns.scatterplot(x=range(0,len(cluter_assignments_arr)),y=cluter_assignments_arr)
@@ -250,9 +250,7 @@ plt.show()
 ```
 
 Make sure the dataframe is good:
-```
-
-
+```python
 cluster_assignments_dict = {"sample":pd.Series(H_df.columns).iloc[dendrogram_dict["leaves"]].values,
                             "cluster":cluter_assignments_arr}
 cluster_assignments_series = pd.DataFrame(cluster_assignments_dict).set_index("sample")["cluster"]
@@ -261,14 +259,14 @@ cluster_assignments_series.head()
 ```
 
 How many patients are in each cluster?
-```
+```python
 cluster_assignments_series.value_counts()
 ```
 
 
 # Step 4: Annotate Clusters of Patients
 
-```
+```python
 from pandas import DataFrame
 
 
@@ -334,7 +332,7 @@ MSigDB_breast_cancer_subtypes_gene_sets_df
 ```
 
 Perform single sample Gene Set Enrichment Analysis (ssGSEA):
-```
+```python
 TCGA_breast_ssGSEA_df = single_sample_gseas(expression_df,
                                             MSigDB_breast_cancer_subtypes_gene_sets_df,
                                             n_job=4) #change n_job to whatever the number of cores you have on your computer
@@ -343,7 +341,7 @@ TCGA_breast_ssGSEA_df = single_sample_gseas(expression_df,
 
 Compute statistics of ssGSEA scores per cluster (1 vs others):
 
-```
+```python
 ## 1 vs all mann whitneys + distribution charts
 def mann_whitney_cluster_1_vs_others(cluster,cluster_assignment_series, data_df):
     cluster_samples = cluster_assignment_series.loc[cluster_assignment_series==cluster].index
@@ -380,7 +378,7 @@ def mann_whitney_cluster_1_vs_others(cluster,cluster_assignment_series, data_df)
     return results_df.sort_values(by="group_avg_diff",ascending=False)
 ```
 Statistics on the ssGSEA score distributions for each cluster can be displayed.  Which gene sets, when ordered by the difference between the average group of interest and others rises to the top?  Do they cover the main described subtypes of breast cancer?  
-```
+```python
 cluster_1_results_df = mann_whitney_cluster_1_vs_others(1,cluster_assignments_series, TCGA_breast_ssGSEA_df)
 cluster_1_results_df
 ```
@@ -412,7 +410,7 @@ cluster_5_results_df
 *Insert background on Kaplan-Meier plots*
 
 
-```
+```python
 def KM_plot(cluster_assignments_series,
             vital_status_df,
             colormap_lst = None,
@@ -468,16 +466,16 @@ def KM_plot(cluster_assignments_series,
 ```
     
 Visualize:
-```
-    colormap_cluster_index_arr = np.array(dendrogram_dict['color_list'])[np.unique(cluter_assignments_arr, return_index=True)[1]]
+```python
+colormap_cluster_index_arr = np.array(dendrogram_dict['color_list'])[np.unique(cluter_assignments_arr, return_index=True)[1]]
 KM_plot_ax, KM_stats_df, KM_medians_df = KM_plot(cluster_assignments_series,vital_status_df,colormap_lst=colormap_cluster_index_arr)
 ```
 Plot Stats:
-```
+```python
 KM_medians_df
 ```
 
-```
+```python
 KM_stats_df
 ```
 
