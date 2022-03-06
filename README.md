@@ -26,7 +26,7 @@
 ### Lifelines
   [Lifelines](https://github.com/CamDavidsonPilon/lifelines/) is a survival analysis library used to create Kaplan-Meier survival plots. 
 ### SciPy
-  [SciPy] (https://scipy.org/install/) is a scientific computing library that we use for hierarchical clustering.  
+  [SciPy](https://scipy.org/install/) is a scientific computing library that we use for hierarchical clustering.  
 ### sklearn
   [ScikitLearn](https://scikit-learn.org/stable/install.html) is a machine learning library.  Here we use it to perform Non-Negative Matrix Factorization (NMF).
 ### StatsModels
