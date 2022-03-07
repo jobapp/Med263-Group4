@@ -55,7 +55,7 @@ All of the above packages can be installed with pip, anaconda, or whatever other
 ```
 pip install -U pandas numpy scipy matplotlib seaborn lifelines scikit-learn statsmodels
 ```
-
+Add this cell to a jupyter notebook and run it:
 ```python
 import pandas as pd
 import seaborn as sns
@@ -74,7 +74,7 @@ from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
 import sys
 ```
-If the above import commands do not result in an error, then your installs were successful.  
+If the above import commands do not result in an error, then your installs were successful.  This was also the first piece of code needed for the tutorial.
 
 Data for this tutorial comes from the Breast Cancer (BRCA) Cohort of [The Cancer Genome Atlas](https://portal.gdc.cancer.gov/projects/TCGA-BRCA).
 
