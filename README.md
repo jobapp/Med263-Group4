@@ -19,6 +19,19 @@
 
   
 # STEP 0: Download Software and Data
+This tutorial uses Python 3 and the Jupyter notebook environment.  You may already have these on your system.
+Install Python 3: https://www.python.org/downloads/
+You may have to install pip separately on some systems.
+Then install Jupyter Notebook: https://jupyter.org/install
+
+Test if your install was successful by opening a terminal and running one of these:
+```python3 -m notebook```
+```py -3.X -m notebook``` 
+X = your version of python, for sample Python X = 7 for Python 3.7
+```jupyter notebook```
+
+
+## Python Packages:
 ### Pandas
   [Pandas](https://pandas.pydata.org/) is a data analytics tool built on python which we will use to import, visualize and clean our data. 
 ### NumPy
