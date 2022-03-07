@@ -502,7 +502,9 @@ def KM_plot(cluster_assignments_series,
         logrank_test_df_dict["p-value"].append(logrank_test_result.p_value)
         ax.set_ylim(0,1.05)
         ax.set_xlim(0,)
-    return ax, pd.DataFrame(logrank_test_df_dict).sort_values(by="p-value",ascending=True), sample_group_medians_df
+    logrank_test_df = pd.DataFrame(logrank_test_df_dict)
+    logrank_test_df["FDR_corrected_p-value"] = fdrcorrection(logrank_test_df["p-value"])[1]
+    return ax, pd.DataFrame(logrank_test_df_dict).sort_values(by="FDR_corrected_p-value",ascending=True), sample_group_medians_df
 ```
     
 Visualize:
