@@ -21,16 +21,27 @@
 # STEP 0: Download Software and Data
 ### Pandas
   [Pandas](https://pandas.pydata.org/) is a data analytics tool built on python which we will use to import, visualize and clean our data. 
+### NumPy
+  [NumPy](https://scipy.org/install/) is a mathematical library optimized for very fast calculations.
+### SciPy
+  [SciPy](https://scipy.org/install/) is a scientific computing library that we use for hierarchical clustering.  
+### MatplotLib
+  [MatplotLib](https://matplotlib.org/stable/users/installing/index.html) is a library for plotting graphs and other basic visualization functionality. 
 ### Seaborn 
  [Seaborn](https://seaborn.pydata.org/) is what we will use to visualize our data. 
 ### Lifelines
   [Lifelines](https://github.com/CamDavidsonPilon/lifelines/) is a survival analysis library used to create Kaplan-Meier survival plots. 
-### SciPy
-  [SciPy](https://scipy.org/install/) is a scientific computing library that we use for hierarchical clustering.  
+
+  
 ### sklearn
   [ScikitLearn](https://scikit-learn.org/stable/install.html) is a machine learning library.  Here we use it to perform Non-Negative Matrix Factorization (NMF).
 ### StatsModels
   [statsmodels](https://www.statsmodels.org/dev/install.html) is a statistical package for doing a variety of data analysis and statistics.  Here it is used for False Discovery Rate (FDR) p-value correction.  
+  
+All of the above packages can be installed with pip, anaconda, or whatever other package/environment manager you prefer.  You may already have some or all of these installed.  Pip commands are given here:
+```
+pip install -U pandas numpy scipy matplotlib seaborn lifelines scikit-learn statsmodels
+```
 
 ```python
 import pandas as pd
