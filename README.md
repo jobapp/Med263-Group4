@@ -156,8 +156,8 @@ vital_status_df.loc[vital_status_df["vital_status"]=="Dead"]
   
 # Step 2: Dimensionality Reduction
   Dimensionality Reduction is a means of transforming highly dimensional data (like TCGA data) to a lower dimension data set, or matrix, 
-  that can more easily be analized. The tool we will be using is Non-Negative Matrix Factorization (NMF) which will transform our original dataset |V| 
-  into two,|W| and |H|, such that **W x H = V**. We will also z-normalize the outputted matrices so that we can more easily interpret and visualize the data.
+  that can more easily be analyzed. The method we will be using is Non-Negative Matrix Factorization (NMF) which will transform/approximate our original dataset |V| 
+  into two matrices,|W| and |H|, such that **W x H = V** plus an error matrix that is not used. We will also z-normalize the outputted matrices so that we can more easily interpret and visualize the data.
   
   This code creates the NMF decomposition and z-normalize functions.
 ```python
