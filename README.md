@@ -388,7 +388,7 @@ TCGA_breast_ssGSEA_df = single_sample_gseas(expression_df,
 Compute statistics of ssGSEA scores per cluster (1 vs others):
 
 ```python
-## 1 vs all mann whitneys + distribution charts
+## 1 vs all mann whitneys
 def mann_whitney_cluster_1_vs_others(cluster,cluster_assignment_series, data_df):
     cluster_samples = cluster_assignment_series.loc[cluster_assignment_series==cluster].index
     other_samples = cluster_assignment_series.loc[cluster_assignment_series!=cluster].index
