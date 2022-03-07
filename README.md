@@ -29,8 +29,11 @@ Then install Jupyter Notebook: https://jupyter.org/install
 
 Test if your install was successful by opening a terminal and running one of these:
 ```python3 -m notebook```
+
 ```py -3.X -m notebook``` 
+
 X = your version of python, for sample Python X = 7 for Python 3.7
+
 ```jupyter notebook```
 
 
