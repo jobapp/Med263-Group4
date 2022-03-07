@@ -80,6 +80,11 @@ import itertools
 from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
 import sys
+from ssGSEA import single_sample_gseas
+
+from statsmodels.stats.multitest import fdrcorrection
+import numpy as np
+
 ```
 If the above import commands do not result in an error, then your installs were successful.  This was also the first piece of code needed for the tutorial.
 
