@@ -50,11 +50,14 @@ from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
 import sys
 ```
-Import Data from [The Cancer Genome Atlas](https://portal.gdc.cancer.gov/projects/TCGA-BRCA).
-```
-Insert download data code here.
-```
-  # Step 1: Data Cleanup
+If the above import commands do not result in an error, then your installs were successful.  
+
+Data for this tutorial comes from the Breast Cancer (BRCA) Cohort of [The Cancer Genome Atlas](https://portal.gdc.cancer.gov/projects/TCGA-BRCA).
+Clinical Data: https://docs.google.com/spreadsheets/d/1dpBjMe0RNiGxcJWYNHcMOBDDSTGDzQJmNq8C_4Bd_4E/edit?usp=sharing
+Expression Data: https://drive.google.com/file/d/1MU4dM7mpBTy933Nx5jNAzVZ8y1EaZ7T0/view?usp=sharing
+Gene Sets (Already on Github): https://drive.google.com/file/d/1-BA3hxGLmQhFs77b8Hno9N4_FuEUXLIW/view?usp=sharing
+
+# Step 1: Data Cleanup
   
   
 First we will want to import the gene expression for each patient as a pandas dataframe.
