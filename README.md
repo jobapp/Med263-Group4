@@ -20,8 +20,11 @@
   
 # STEP 0: Download Software and Data
 This tutorial uses Python 3 and the Jupyter notebook environment.  You may already have these on your system.
+
 Install Python 3: https://www.python.org/downloads/
+
 You may have to install pip separately on some systems.
+
 Then install Jupyter Notebook: https://jupyter.org/install
 
 Test if your install was successful by opening a terminal and running one of these:
