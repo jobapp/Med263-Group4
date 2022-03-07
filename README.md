@@ -83,6 +83,7 @@ import sys
 ```
 If the above import commands do not result in an error, then your installs were successful.  This was also the first piece of code needed for the tutorial.
 
+## Data:
 Data for this tutorial comes from the Breast Cancer (BRCA) Cohort of [The Cancer Genome Atlas](https://portal.gdc.cancer.gov/projects/TCGA-BRCA).
 
 Clinical Data: https://docs.google.com/spreadsheets/d/1dpBjMe0RNiGxcJWYNHcMOBDDSTGDzQJmNq8C_4Bd_4E/edit?usp=sharing
@@ -90,6 +91,8 @@ Clinical Data: https://docs.google.com/spreadsheets/d/1dpBjMe0RNiGxcJWYNHcMOBDDS
 Expression Data: https://drive.google.com/file/d/1MU4dM7mpBTy933Nx5jNAzVZ8y1EaZ7T0/view?usp=sharing
 
 Gene Sets (Already in this repository in the [data directory](data/MSigDB_breast_cancer_subtypes_gene_sets.gmt)): https://drive.google.com/file/d/1-BA3hxGLmQhFs77b8Hno9N4_FuEUXLIW/view?usp=sharing
+
+Place all downloaded data into the [data directory](data/).  
 
 # Step 1: Data Cleanup
   
