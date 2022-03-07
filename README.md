@@ -117,7 +117,7 @@ df = clinical_info_df[["days_to_last_followup",'days_to_death', 'vital_status']]
 df.loc[df["vital_status"]=="Dead"].head()
 ```
 
-This code below "regularizes" the timepoint data into one table by choosing the column depending on the patient's vital status (Dead/Alive).  
+This code below "regularizes" the timepoint data into one column by choosing the approrpiate column depending on the patient's vital status (Dead/Alive).  
 
 ```python
 df["days_to_last_followup"] = pd.to_numeric(df["days_to_last_followup"],errors="coerce")
