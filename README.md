@@ -66,11 +66,12 @@ Add this cell to a jupyter notebook and run it:
 ```python
 import pandas as pd
 import seaborn as sns
-import lifelines
 
 from scipy.spatial import distance
 from scipy.cluster import hierarchy
 from scipy.cluster.hierarchy import dendrogram, linkage,fcluster,cut_tree,set_link_color_palette
+from scipy.stats import mannwhitneyu,norm,sem
+
 import sklearn.decomposition
 from sklearn.cluster import AgglomerativeClustering
 import matplotlib.pyplot as plt
