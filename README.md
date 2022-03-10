@@ -453,7 +453,8 @@ cluster_5_results_df
 ```
 Fill in the ```cluster_relabel_dict``` below with your interpretation of what each cluster is:
 
-```cluster_relabel_dict = {1:"Cluster 1: ",
+```
+cluster_relabel_dict = {1:"Cluster 1: ",
                         2:"Cluster 2: ",
                         3:"Cluster 3: ",
                         4:"Cluster 4: ",
