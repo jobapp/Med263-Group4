@@ -535,7 +535,9 @@ def KM_plot(cluster_assignments_series,
 Visualize:
 ```python
 colormap_cluster_index_arr = np.array(dendrogram_dict['color_list'])[np.unique(cluter_assignments_arr, return_index=True)[1]]
-KM_plot_ax, KM_stats_df, KM_medians_df = KM_plot(cluster_assignments_series,vital_status_df,colormap_lst=colormap_cluster_index_arr)
+colormap_cluster_index_dict = {cluster_relabel_dict[k]:colormap_cluster_index_arr[k] for k in range(0,len(colormap_cluster_index_arr))}
+
+KM_plot_ax, KM_stats_df, KM_medians_df = KM_plot(cluster_assignments_series,vital_status_df,colormap_lst=colormap_cluster_index_dict)
 ```
 Plot Stats:
 ```python
