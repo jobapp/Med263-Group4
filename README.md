@@ -257,7 +257,7 @@ sns.clustermap(H_df,
               )
 ```
 
-Now that we have clusters, it is always nice to visualize them using color.  This step is also necessary to make sure future plots of multiple clusters have the same colo/cluster assignments as this first dendrogram.
+Now that we have clusters, it is always nice to visualize them using color.  This step is also necessary to make sure future plots of multiple clusters have the same color/cluster assignments as this first dendrogram.
 ```python
 colormap_hex = []
 colormap_obj = cm.get_cmap('Paired')
