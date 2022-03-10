@@ -453,8 +453,8 @@ cluster_5_results_df
 ```
 
 # Step 5: Survival Analysis
-  Kaplan-Meier Survival Analysis is a simple tool which incorporates successive probabilities of an event to calculate the overall probability of an event occurring, accounting for right-censored data points due to loss of followup, study ending, etc. 
-  In this project, we will be using the lifelines KaplanMeierFitter function to calculate and graph the Kaplan-Meier Curve. 
+Kaplan-Meier Survival Analysis is a simple tool which incorporates successive probabilities of an event to calculate the overall probability of an event occurring, accounting for right-censored data points due to loss of followup, study ending, etc. 
+In this section, we will be using the lifelines KaplanMeierFitter function to calculate and graph the Kaplan-Meier Curve to compare the survival probabilities over time between all the different clusters of patients we created. 
 
 
 ```python
