@@ -257,7 +257,7 @@ sns.clustermap(H_df,
               )
 ```
 
-Now that we have clusters, it is always nice to visualize them using color:
+Now that we have clusters, it is always nice to visualize them using color.  This step is also necessary to make sure future plots of multiple clusters have the same colo/cluster assignments as this first dendrogram.
 ```python
 colormap_hex = []
 colormap_obj = cm.get_cmap('Paired')
@@ -451,7 +451,24 @@ cluster_4_results_df
 cluster_5_results_df = mann_whitney_cluster_1_vs_others(5,cluster_assignments_series, TCGA_breast_ssGSEA_df)
 cluster_5_results_df
 ```
+Fill in the ```cluster_relabel_dict``` below with your interpretation of what each cluster is:
 
+```cluster_relabel_dict = {1:"Cluster 1: ",
+                        2:"Cluster 2: ",
+                        3:"Cluster 3: ",
+                        4:"Cluster 4: ",
+                        5:"Cluster 5: "}
+#Don't worry about the other clusters.  
+for cluster_number in cluster_assignments_series.unique():
+    if cluster_number not in cluster_relabel_dict:
+        cluster_relabel_dict[cluster_number] = "Cluster {}".format(cluster_number)
+cluster_relabel_dict
+```
+
+```
+cluster_assignments_series = cluster_assignments_series.replace(to_replace=cluster_relabel_dict)
+
+```
 # Step 5: Survival Analysis
 Kaplan-Meier Survival Analysis is a simple tool which incorporates successive probabilities of an event to calculate the overall probability of an event occurring, accounting for right-censored data points due to loss of followup, study ending, etc. 
 In this section, we will be using the lifelines KaplanMeierFitter function to calculate and graph the Kaplan-Meier Curve to compare the survival probabilities over time between all the different clusters of patients we created. 
