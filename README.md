@@ -1,7 +1,7 @@
 # Med263-Group4
 # Introduction
   Genetic mutations are thought to be the main cause of cancer.  These functional changes in protein products result in cancers that may have radically different 
-  behaviors in terms of disease progression and therefore treatment options. Genes that are known to be mutated in breast cancers include BRCA1 and 2, TP53, PIK3CA, HER2. 
+  behaviors in terms of disease progression and therefore treatment options. Genes that are known to be mutated in breast cancers include BRCA1 and 2, TP53, PIK3CA, HER2. Traditionally, breast cancers are categorized into one of four types—Luminal A, Luminal B, HER2E, and Basal (triple negative). These categories are based on the histological appearance, immunostaining, and sometimes mutation profiles of well characterized genes, like those listed above. 
   However, there are hundreds of other genes whose role in breast cancer is yet to be fully understood, 
   including those which influence the expression levels of a gene which may otherwise be normal. 
   RNA Seq is a next-generation sequencing (NGS) tool which allows for the quantitative measure of gene expression. 
