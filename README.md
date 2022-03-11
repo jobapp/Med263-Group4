@@ -17,10 +17,10 @@
   to the different groups of samples.  We will also be examining which specific mutations are more associated with certain groups to determine the “root cause” 
   of the observed cancer expression pattern. 
   
-# Biological/clinical interpretation of analysis results is provided
+# Biological/clinical interpretation of analysis results
 Several of the clusters formed during the analysis correlate highly, through ssGSEA, with the four traditional means of categorizing breast tumors (Luminal A, Luminal B, Basal, HER2+). This project would allow researchers to subset the traditional categories in order to identify additional treatment targets which could be used in conjunction with available treatments, and also allow for a more accurate prognosis. 
 
-# Mathematical/statistical meaning of analysis is provided
+# Mathematical/statistical meaning of analysis
 
 
 # Common pitfalls and how to avoid them 
