@@ -16,6 +16,27 @@
  The resulting groups of this unsupervised clustering will then be annotated using ssGSEA (single sample GSEA) in order to assign biological meaning 
   to the different groups of samples.  We will also be examining which specific mutations are more associated with certain groups to determine the “root cause” 
   of the observed cancer expression pattern. 
+  
+# Biological/clinical interpretation of analysis results is provided
+Several of the clusters formed during the analysis correlate highly, through ssGSEA, with the four traditional means of categorizing breast tumors (Luminal A, Luminal B, Basal, HER2+). This project would allow researchers to subset the traditional categories in order to identify additional treatment targets which could be used in conjunction with available treatments, and also allow for a more accurate prognosis. 
+
+# Mathematical/statistical meaning of analysis is provided
+
+
+# Common pitfalls and how to avoid them 
+1. Be sure to add the clinical and gene expression data files into your data directory:
+
+    Clinical Data: https://docs.google.com/spreadsheets/d/1dpBjMe0RNiGxcJWYNHcMOBDDSTGDzQJmNq8C_4Bd_4E/edit?usp=sharing
+    
+    Expression Data: https://drive.google.com/file/d/1MU4dM7mpBTy933Nx5jNAzVZ8y1EaZ7T0/view?usp=sharing
+    
+    Gene Sets (Already in this repository in the data directory): https://drive.google.com/file/d/1-BA3hxGLmQhFs77b8Hno9N4_FuEUXLIW/view?usp=sharing
+
+2. While Clustering, be sure to not set the height threshold too low——it will take an incredibly long time to run, may crash some computers, and may not return as useful clusters. To avoid, you can start with a higher threshold and decrease until you are satisfied with the results, or use the . 
+ 
+ 3. If you are working on a separate problem using NMF_decomposition, setting a random state is important for reproducibility. 
+
+
 
   
 # STEP 0: Download Software and Data
@@ -227,7 +248,7 @@ H_row_linkage_obj = linkage(distance.pdist(H_df), method='average')
 H_col_linkage_obj = linkage(distance.pdist(H_df.T), method='average')
 ```
 
-Cluster of genes (**W**):
+Cluster of genes (**W**) *Red is indicative of genese which are up regulated and blue are genes which are down regulated within a latent category (f0-f9)*:
 ```python
 sns.clustermap(W_df,
                row_linkage=W_row_linkage_obj,
@@ -242,7 +263,7 @@ sns.clustermap(W_df,
               )
 ```
 
-Cluster of Patients (**H**):
+Cluster of Patients (**H**) Here the colors indicate how much each patient correlates with a latent category (f0-f9), with bed being correlated and blue being uncorrelation:
 ```python
 sns.clustermap(H_df,
                row_linkage=H_row_linkage_obj,
