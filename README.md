@@ -248,7 +248,7 @@ H_row_linkage_obj = linkage(distance.pdist(H_df), method='average')
 H_col_linkage_obj = linkage(distance.pdist(H_df.T), method='average')
 ```
 
-Cluster of genes (**W**) *Red is indicative of genese which are up regulated and blue are genes which are down regulated within a latent category (f0-f9)*:
+Creates a hierarchically clustered heatmap of the genes dataset (**W**) *Red is indicative of genese which are up regulated and blue are genes which are down regulated within a latent category (f0-f9)*:
 ```python
 sns.clustermap(W_df,
                row_linkage=W_row_linkage_obj,
@@ -263,7 +263,7 @@ sns.clustermap(W_df,
               )
 ```
 
-Cluster of Patients (**H**) Here the colors indicate how much each patient correlates with a latent category (f0-f9), with bed being correlated and blue being uncorrelation:
+Creates a hierarchically clustered heatmap of the Clinical dataset (**H**) *Here the colors indicate how much each patient correlates with a specific latent category (f0-f9), with bed being correlated and blue being uncorrelation*:
 ```python
 sns.clustermap(H_df,
                row_linkage=H_row_linkage_obj,
@@ -278,7 +278,7 @@ sns.clustermap(H_df,
               )
 ```
 
-Now that we have clusters, it is always nice to visualize them using color.  This step is also necessary to make sure future plots of multiple clusters have the same color/cluster assignments as this first dendrogram.
+Now we can assign each clinical datapoint to a cluster based on the dendrogram for further analysis. This step is necessary to make sure future plots of multiple clusters have the same color/cluster assignments as the cluster dendrogram.
 ```python
 colormap_hex = []
 colormap_obj = cm.get_cmap('Paired')
