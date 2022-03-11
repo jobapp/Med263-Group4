@@ -1,4 +1,5 @@
 # Med263-Group4
+This tutorial is hosted at this GitHub Repository: https://github.com/jobapp/Med263-Group4
 # Introduction
   Genetic mutations are thought to be the main cause of cancer.  These functional changes in protein products result in cancers that may have radically different 
   behaviors in terms of disease progression and therefore treatment options. Genes that are known to be mutated in breast cancers include BRCA1 and 2, TP53, PIK3CA, HER2.<sup>4</sup> Traditionally, breast cancers are categorized into one of four types: Luminal A, Luminal B, HER2E, and Basal (triple negative). These categories are based on the histological appearance, immunostaining, and sometimes mutation profiles of well characterized genes, like those listed above. <sup>1</sup>
@@ -21,7 +22,7 @@
 Several of the clusters formed during the analysis correlate highly, through ssGSEA-based annotation, with the four traditional means of categorizing breast tumors (Luminal A, Luminal B, Basal, HER2+).  This project would allow researchers to subset the traditional categories in order to identify additional treatment targets which could be used in conjunction with available treatments, and also allow for a more accurate prognosis assessment. 
 
 # Mathematical/statistical meaning of analysis
-Clusters were biologically annotated using one-vs-all (cluster of interest vs samples not in the cluster) comparisons of their ssGSEA scores, statistically qantified using the Mann-Whitney test.  In clusters 1 through 5 in the tutorial, the gene set corresponding with the breast cancer subtype (Luminal A, Luminal B, HER2E, and Basal \[triple negative\]) was the one with the lowest p-value for the cluster, even after multiple intra-group multiple hypothesis correction.  Kaplan-Meier plots were also generated to examine differences in survival over time in the different clusters.  In general, known trends such as triple negative cancers having a lower median survival time compared to other subtypes were captured.<sup>1</sup>  Pairwise differences between the survival curves of the different group were statistically quantified with the Cox Log-Rank test.  After multiple hypothesis correction, ```Cluster 2: Luminal A``` and ```Cluster 5: ERBB2-driven``` were the only pair of meaningful clusters with a statistically significant difference (p = 0.046) in survival, meaning they had a reasonable amount of patients (Cluster 9 only had 1 patient and was likely due to noise)  In multiple hypothesis testing, p-values were corrected using the Benjamini-Hochberg False Discovery Rate (FDR) procedure as implemented in the ```fdrcorrection``` function of the ```statsmodel``` package.
+Clusters were biologically annotated using one-vs-all (cluster of interest vs samples not in the cluster) comparisons of their ssGSEA scores, statistically qantified using the Mann-Whitney test.  In clusters 1 through 5 in the tutorial, the gene set corresponding with the breast cancer subtype (Luminal A, Luminal B, HER2E, and Basal \[triple negative\]) was the one with the lowest p-value for the cluster, even after multiple intra-group multiple hypothesis correction.  Kaplan-Meier plots were also generated to examine differences in survival over time in the different clusters.  Pairwise differences between the survival curves of the different group were statistically quantified with the Cox Log-Rank test.  After multiple hypothesis correction, ```Cluster 2: Luminal A``` and ```Cluster 5: ERBB2-driven``` were the only pair of meaningful clusters with a statistically significant difference (p = 0.046) in survival, meaning they had a reasonable amount of patients (Cluster 9 only had 1 patient and was likely due to noise).  The ERBB2 (HER2) cluster had a lower median survival time of 3063 days than the Luminal A cluster, which had 3926 days, replicating a clinically known fact <sup>1</sup>.  In multiple hypothesis testing, p-values were corrected using the Benjamini-Hochberg False Discovery Rate (FDR) procedure as implemented in the ```fdrcorrection``` function of the ```statsmodel``` package.
 
 # Common pitfalls and how to avoid them 
 1. Be sure to add the clinical and gene expression data files into your data directory:
@@ -473,6 +474,7 @@ cluster_4_results_df
 cluster_5_results_df = mann_whitney_cluster_1_vs_others(5,cluster_assignments_series, TCGA_breast_ssGSEA_df)
 cluster_5_results_df
 ```
+In clusters 1 through 5 in the tutorial, the gene set corresponding with the breast cancer subtype (Luminal A, Luminal B, HER2E, and Basal \[triple negative\]) was the one with the lowest p-value for the cluster, even after multiple intra-group multiple hypothesis correction.  Kaplan-Meier plots were also generated to examine differences in survival over time in the different clusters.  In general, known trends such as triple negative cancers having a lower median survival time compared to other subtypes were captured.<sup>1</sup>  
 Fill in the ```cluster_relabel_dict``` below with your interpretation of what each cluster is:
 
 ```python
@@ -562,10 +564,12 @@ colormap_cluster_index_dict = {cluster_relabel_dict[k]:colormap_cluster_index_ar
 KM_plot_ax, KM_stats_df, KM_medians_df = KM_plot(cluster_assignments_series,vital_status_df,colormap_lst=colormap_cluster_index_dict)
 ```
 Plot Stats:
+**Median Survival Times**: 
+This is the timepoint at which the group's line crosses the 0.5 survival probability on the graph above.
 ```python
 KM_medians_df
 ```
-
+**Pairwise Statistics**: Are the survival curves of each cluster different than each other (pairwise)?
 ```python
 KM_stats_df
 ```
@@ -575,3 +579,5 @@ KM_stats_df
   2. https://portal.gdc.cancer.gov/projects/TCGA-BRCA 
   3. Subramanian A, Tamayo P, et.al. Gene set enrichment analysis: A knowledge-based approach for interpreting genome-wide expression profiles. PNAS. 
   4. Pereira, B., Chin, SF., Rueda, O. et al. The somatic mutation profiles of 2,433 breast cancers refine their genomic and transcriptomic landscapes. Nat Commun 7, 11479 (2016). https://doi.org/10.1038/ncomms11479
+
+Software package references are listed in **Step 0: Download Software and Data**.
