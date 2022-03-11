@@ -1,7 +1,7 @@
 # Med263-Group4
 # Introduction
   Genetic mutations are thought to be the main cause of cancer.  These functional changes in protein products result in cancers that may have radically different 
-  behaviors in terms of disease progression and therefore treatment options. Genes that are known to be mutated in breast cancers include BRCA1 and 2, TP53, PIK3CA, HER2. Traditionally, breast cancers are categorized into one of four types: Luminal A, Luminal B, HER2E, and Basal (triple negative). These categories are based on the histological appearance, immunostaining, and sometimes mutation profiles of well characterized genes, like those listed above. 
+  behaviors in terms of disease progression and therefore treatment options. Genes that are known to be mutated in breast cancers include BRCA1 and 2, TP53, PIK3CA, HER2.<sup>4</sup> Traditionally, breast cancers are categorized into one of four types: Luminal A, Luminal B, HER2E, and Basal (triple negative). These categories are based on the histological appearance, immunostaining, and sometimes mutation profiles of well characterized genes, like those listed above. <sup>1</sup>
   However, there are hundreds of other genes whose role in breast cancer is yet to be fully understood, 
   including those which influence the expression levels of a gene which may otherwise be normal. 
   RNA Seq is a next-generation sequencing (NGS) tool which allows for the quantitative measure of gene expression. 
@@ -9,19 +9,19 @@
   cancer and lead to more effective therapies.
     
   In this exercise, we will be looking at a breast cancer data set from TCGA (BRCA cohort) consisting of 1097 different patients that have had their gene expression
-  quantified with RNAseq and their somatic mutation profile assessed by NGS.  We will be performing dimensionality reduction via non-negative matrix factorization (NMF) 
+  quantified with RNAseq and their somatic mutation profile assessed by NGS.<sup>2</sup>  We will be performing dimensionality reduction via non-negative matrix factorization (NMF) 
   in order to reduce the complex TCGA dataset to two |W| x |H|, for genes and patient ID, respectively. Patients were then reorganized into a z-normalized, 
   hierarchically-clustered heatmap, with 11 clusters identified with 1 to 465 patients per group. Kaplan-Meier curves comparing survivability of various clusters. 
   was then performed. We will be using the patients’ RNAseq expression as a readout for cancer type to cluster them into functional groups.  
  The resulting groups of this unsupervised clustering will then be annotated using ssGSEA (single sample GSEA) in order to assign biological meaning 
- to the different groups of samples.  We will also be examining which specific mutations are more associated with certain groups to determine the “root cause” 
+ to the different groups of samples.<sup>3</sup>  We will also be examining which specific mutations are more associated with certain groups to determine the “root cause” 
   of the observed cancer expression pattern. 
   
 # Biological/clinical interpretation of analysis results
-Several of the clusters formed during the analysis correlate highly, through ssGSEA, with the four traditional means of categorizing breast tumors (Luminal A, Luminal B, Basal, HER2+).  This project would allow researchers to subset the traditional categories in order to identify additional treatment targets which could be used in conjunction with available treatments, and also allow for a more accurate prognosis assessment. 
+Several of the clusters formed during the analysis correlate highly, through ssGSEA-based annotation, with the four traditional means of categorizing breast tumors (Luminal A, Luminal B, Basal, HER2+).  This project would allow researchers to subset the traditional categories in order to identify additional treatment targets which could be used in conjunction with available treatments, and also allow for a more accurate prognosis assessment. 
 
 # Mathematical/statistical meaning of analysis
-Clusters were biologically annotated using one-vs-all (cluster of interest vs samples not in the cluster) comparisons of their ssGSEA scores, statistically qantified using the Mann-Whitney test.  In clusters 1 through 5 in the tutorial, the gene set corresponding with the breast cancer subtype (Luminal A, Luminal B, HER2E, and Basal \[triple negative\]) was the one with the lowest p-value for the cluster.  All p-values were corrected using the Benjamini-Hochberg False Discovery Rate (FDR) procedure as implemented in the ```fdrcorrection``` function of the ```statsmodel``` package.
+Clusters were biologically annotated using one-vs-all (cluster of interest vs samples not in the cluster) comparisons of their ssGSEA scores, statistically qantified using the Mann-Whitney test.  In clusters 1 through 5 in the tutorial, the gene set corresponding with the breast cancer subtype (Luminal A, Luminal B, HER2E, and Basal \[triple negative\]) was the one with the lowest p-value for the cluster, even after multiple intra-group multiple hypothesis correction.  Kaplan-Meier plots were also generated to examine differences in survival over time in the different clusters.  In general, known trends such as triple negative cancers having a lower median survival time compared to other subtypes were captured.<sup>1</sup>  Pairwise differences between the survival curves of the different group were statistically quantified with the Cox Log-Rank test.  After multiple hypothesis correction, ```Cluster 2: Luminal A``` and ```Cluster 5: ERBB2-driven``` were the only pair of meaningful clusters with a statistically significant difference (p = 0.046) in survival, meaning they had a reasonable amount of patients (Cluster 9 only had 1 patient and was likely due to noise)  In multiple hypothesis testing, p-values were corrected using the Benjamini-Hochberg False Discovery Rate (FDR) procedure as implemented in the ```fdrcorrection``` function of the ```statsmodel``` package.
 
 # Common pitfalls and how to avoid them 
 1. Be sure to add the clinical and gene expression data files into your data directory:
@@ -37,7 +37,7 @@ Clusters were biologically annotated using one-vs-all (cluster of interest vs sa
 3. If you are working on a separate problem using NMF_decomposition, setting a random state is important for reproducibility. 
 
 4. Make sure you take time to explore the data you are given since it might not be in a form that is suitable for analysis, or that your code can use.  See **Step 1: Data Cleanup**.
-5. Always make sure you do multiple hypothesis corrections when testing multiple hypotheses.  If everything is "significant" then nothing is.  
+5. Always make sure you do multiple hypothesis corrections when testing multiple hypotheses because if everything is "significant", then nothing is.  
 
   
 # STEP 0: Download Software and Data
